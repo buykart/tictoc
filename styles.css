@@ -1,212 +1,35 @@
+/* General Styling */
 body {
-    font-family: sans-serif;
-    margin: 0;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
 }
 
 .hidden {
-    display: none !important;
+  display: none;
 }
 
-/* Loading Screen */
 #loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #e0f2f7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
 }
 
-.loading-icon {
-    width: 100px;
-    height: 100px;
-    animation: spin 1s linear infinite;
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #555;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Home Page */
-#home-page {
-    text-align: center;
-    padding: 20px;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.leaderboard-section {
-    text-align: left;
-}
-
-.leaderboard-section h2 {
-    margin-top: 0;
-}
-
-.leaderboard-section input[type="text"] {
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-}
-
-.leaderboard-section #search-results {
-    margin-bottom: 10px;
-}
-
-main button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-}
-
-/* Popups */
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1001;
-    text-align: center;
-}
-
-.popup input[type="text"] {
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-}
-
-.popup button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #28a745;
-    color: white;
-}
-
-/* Game Lobby */
-#game-lobby {
-    text-align: center;
-    padding: 20px;
-}
-
-#game-lobby .player-info {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-#game-lobby .player-info div {
-    text-align: left;
-}
-
-#game-lobby #room-id-display {
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-#game-lobby #loading-animation {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Game Screen */
-#game-screen {
-    text-align: center;
-    padding: 20px;
-}
-
-#board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 2px;
-    margin: 20px auto;
-}
-
-.cell {
-    width: 100px;
-    height: 100px;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
-    cursor: pointer;
-}
-
-#turn-indicator {
-    font-size: 1.2em;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-/* Winner Popup */
-#winner-popup {
-    text-align: center;
-}
-
-#winner-popup button {
-    margin-top: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-    }
-    .leaderboard-section {
-        margin-top: 20px;
-        text-align: center;
-    }
-    .leaderboard-section input[type="text"] {
-        width: 100%;
-    }
-    #board {
-        grid-template-columns: repeat(3, 80px);
-        grid-template-rows: repeat(3, 80px);
-    }
-    .cell {
-        width: 80px;
-        height: 80px;
-        font-size: 1.5em;
-    }
-    #game-lobby .player-info {
-        flex-direction: column;
-        align-items: center;
-    }
-    #game-lobby .player-info div {
-        margin-bottom: 10px;
-        text-align: center;
-    }
-}
+/* Other sections to style the home page, game lobby, and board */
