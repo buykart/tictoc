@@ -1,85 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe Multiplayer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="loading-screen">
-        <img src="tic-tac-toe-icon.png" alt="Game Icon" class="loading-icon">
-    </div>
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+  
+  <div id="home-page" class="hidden">
+    <h1>Tic-Tac-Toe</h1>
+    <div id="leaderboard">Leaderboard</div>
+    <button id="create-room">Create Room</button>
+    <button id="enter-room">Enter Room</button>
+  </div>
 
-    <div id="home-page" class="hidden">
-        <header>
-            <h1>Tic-Tac-Toe</h1>
-            <div class="leaderboard-section">
-                <h2>Leaderboard</h2>
-                <input type="text" id="search-room" placeholder="Search Room ID">
-                <div id="search-results"></div>
-                <div id="leaderboard-data">
-                    </div>
-            </div>
-        </header>
-        <main>
-            <button id="create-room-btn">Create Room</button>
-            <button id="enter-room-btn">Enter Room</button>
-        </main>
+  <div id="game-lobby" class="hidden">
+    <div id="player-info">
+      <p>Your Name: <span id="player-name"></span></p>
+      <p>Your Score: <span id="player-score">0</span></p>
+      <p>Opponent: <span id="opponent-name">Waiting for Opponent</span></p>
+      <p>Opponent Score: <span id="opponent-score">0</span></p>
+      <p>Room ID: <span id="room-id"></span></p>
     </div>
+  </div>
 
-    <div id="create-room-popup" class="popup hidden">
-        <input type="text" id="create-name" placeholder="Your Name">
-        <button id="create-room-confirm">Create Room</button>
-    </div>
+  <div id="game-board" class="hidden">
+    <table>
+      <tr>
+        <td id="cell-0"></td>
+        <td id="cell-1"></td>
+        <td id="cell-2"></td>
+      </tr>
+      <tr>
+        <td id="cell-3"></td>
+        <td id="cell-4"></td>
+        <td id="cell-5"></td>
+      </tr>
+      <tr>
+        <td id="cell-6"></td>
+        <td id="cell-7"></td>
+        <td id="cell-8"></td>
+      </tr>
+    </table>
+  </div>
 
-    <div id="enter-room-popup" class="popup hidden">
-        <input type="text" id="enter-name" placeholder="Your Name">
-        <input type="text" id="room-id-input" placeholder="Room ID">
-        <button id="join-room-confirm">Join Room</button>
-    </div>
-
-    <div id="game-lobby" class="hidden">
-        <div class="player-info">
-            <div id="player1-info">
-                <h3>You</h3>
-                <p id="player1-name"></p>
-                <p>Score: <span id="player1-score">0</span></p>
-            </div>
-            <div id="player2-info">
-                <h3>Opponent</h3>
-                <p id="player2-name">Waiting for Opponent</p>
-                <p>Score: <span id="player2-score">0</span></p>
-            </div>
-        </div>
-        <div id="room-id-display">Room ID: <span id="room-id"></span></div>
-        <div id="loading-animation" class="hidden">Starting Game...</div>
-    </div>
-
-    <div id="game-screen" class="hidden">
-        <div id="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
-        </div>
-        <div id="turn-indicator">Your Turn</div>
-    </div>
-
-    <div id="winner-popup" class="popup hidden">
-        <h2 id="winner-message"></h2>
-        <p id="final-scores"></p>
-        <p id="player-names"></p>
-        <button id="play-again-btn">Play Again</button>
-    </div>
-
-    <script src="firebase-app.js"></script>
-    <script src="firebase-database.js"></script>
-    <script src="script.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
