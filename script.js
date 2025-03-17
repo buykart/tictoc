@@ -16,7 +16,7 @@ const database = firebase.database();
 // Get DOM elements
 const loadingScreen = document.getElementById('loading-screen');
 const homePage = document.getElementById('home-page');
-const createRoomBtn  hh gc= document.getElementById('create-room-btn');
+const createRoomBtn = document.getElementById('create-room-btn');
 const enterRoomBtn = document.getElementById('enter-room-btn');
 const createRoomPopup = document.getElementById('create-room-popup');
 const enterRoomPopup = document.getElementById('enter-room-popup');
