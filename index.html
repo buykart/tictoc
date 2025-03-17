@@ -3,94 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe Multiplayer</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js"></script>
-    <script defer src="script.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBIQ2pxTuvPCBiJh8nPfoWOtIzI7Cr4Vnk",
-    authDomain: "tic-toc-8bd3c.firebaseapp.com",
-    databaseURL: "https://tic-toc-8bd3c-default-rtdb.firebaseio.com",
-    projectId: "tic-toc-8bd3c",
-    storageBucket: "tic-toc-8bd3c.appspot.com",
-    messagingSenderId: "143591558845",
-    appId: "1:143591558845:web:976aa26fd5027f0df7f1d4"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-</script>
+    <title>Tic-Tac-Toe | Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <h1>Tic-Tac-Toe</h1>
-        <div class="loader"></div>
-    </div>
-
-    <!-- Home Page -->
-    <div id="home-page">
-        <h1>Tic-Tac-Toe Multiplayer</h1>
-        <div id="leaderboard">
-            <h2>Leaderboard</h2>
-            <input type="text" id="search-room" placeholder="Enter Room ID">
-            <button onclick="searchLeaderboard()">Search</button>
-            <ul id="leaderboard-list"></ul>
-        </div>
-        <button onclick="showCreateRoomPopup()">Create Room</button>
-        <button onclick="showJoinRoomPopup()">Enter Room</button>
-    </div>
-
-    <!-- Create Room Popup -->
-    <div id="create-room-popup" class="popup">
-        <h2>Create Room</h2>
-        <input type="text" id="host-name" placeholder="Enter Your Name">
-        <button onclick="createRoom()">Create</button>
-    </div>
-
-    <!-- Join Room Popup -->
-    <div id="join-room-popup" class="popup">
-        <h2>Join Room</h2>
-        <input type="text" id="guest-name" placeholder="Enter Your Name">
-        <input type="text" id="room-id" placeholder="Enter Room ID">
-        <button onclick="joinRoom()">Join</button>
-    </div>
-
-    <!-- Game Lobby -->
-    <div id="game-lobby">
-        <h2>Room ID: <span id="room-code"></span></h2>
-        <div class="players">
-            <div id="player1">Waiting...</div>
-            <div id="player2">Waiting for Opponent...</div>
-        </div>
-        <button onclick="startGame()">Start Game</button>
-    </div>
-
-    <!-- Game Board -->
+    <h1>Tic-Tac-Toe Game</h1>
     <div id="game-board">
-        <h2>Tic-Tac-Toe</h2>
-        <div class="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
-        </div>
+        <div class="cell" onclick="makeMove(0)"></div>
+        <div class="cell" onclick="makeMove(1)"></div>
+        <div class="cell" onclick="makeMove(2)"></div>
+        <div class="cell" onclick="makeMove(3)"></div>
+        <div class="cell" onclick="makeMove(4)"></div>
+        <div class="cell" onclick="makeMove(5)"></div>
+        <div class="cell" onclick="makeMove(6)"></div>
+        <div class="cell" onclick="makeMove(7)"></div>
+        <div class="cell" onclick="makeMove(8)"></div>
     </div>
-
-    <!-- Winner Popup -->
-    <div id="winner-popup" class="popup">
-        <h2 id="winner-message"></h2>
-        <button onclick="restartGame()">Play Again</button>
-    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
