@@ -1,77 +1,212 @@
-/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
+    font-family: sans-serif;
     margin: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e0f2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-icon {
+    width: 100px;
+    height: 100px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Home Page */
+#home-page {
+    text-align: center;
     padding: 20px;
 }
 
-/* Buttons */
-button {
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.leaderboard-section {
+    text-align: left;
+}
+
+.leaderboard-section h2 {
+    margin-top: 0;
+}
+
+.leaderboard-section input[type="text"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.leaderboard-section #search-results {
+    margin-bottom: 10px;
+}
+
+main button {
     padding: 10px 20px;
-    font-size: 18px;
     margin: 10px;
-    border: none;
+    font-size: 16px;
     cursor: pointer;
+    border: none;
+    border-radius: 4px;
     background-color: #007bff;
     color: white;
-    border-radius: 5px;
-    transition: 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+/* Popups */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    text-align: center;
 }
 
-/* Game Board */
-#game-board {
+.popup input[type="text"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.popup button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+}
+
+/* Game Lobby */
+#game-lobby {
+    text-align: center;
+    padding: 20px;
+}
+
+#game-lobby .player-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+#game-lobby .player-info div {
+    text-align: left;
+}
+
+#game-lobby #room-id-display {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#game-lobby #loading-animation {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Game Screen */
+#game-screen {
+    text-align: center;
+    padding: 20px;
+}
+
+#board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    grid-gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
+    grid-template-rows: repeat(3, 100px);
+    gap: 2px;
+    margin: 20px auto;
 }
 
 .cell {
     width: 100px;
     height: 100px;
-    font-size: 36px;
-    background-color: white;
-    border: 2px solid #000;
+    border: 1px solid #ccc;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    font-size: 2em;
     cursor: pointer;
 }
 
-.cell:hover {
-    background-color: #ddd;
-}
-
-/* Leaderboard */
-#leaderboard-results {
-    margin-top: 20px;
-    font-size: 18px;
+#turn-indicator {
+    font-size: 1.2em;
+    margin-top: 10px;
     font-weight: bold;
 }
 
-#searchRoomId {
-    padding: 8px;
-    font-size: 16px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Winner Popup */
+#winner-popup {
+    text-align: center;
 }
 
+#winner-popup button {
+    margin-top: 10px;
+}
+
+/* Responsive Design */
 @media (max-width: 600px) {
-    #game-board {
-        grid-template-columns: repeat(3, 80px);
+    header {
+        flex-direction: column;
+        align-items: center;
     }
-    
+    .leaderboard-section {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .leaderboard-section input[type="text"] {
+        width: 100%;
+    }
+    #board {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
+    }
     .cell {
         width: 80px;
         height: 80px;
-        font-size: 28px;
+        font-size: 1.5em;
+    }
+    #game-lobby .player-info {
+        flex-direction: column;
+        align-items: center;
+    }
+    #game-lobby .player-info div {
+        margin-bottom: 10px;
+        text-align: center;
     }
 }
