@@ -1,55 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic-Tac-Toe</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bubble Breaker</title>
+  <style>
+    /* (1) यहां ऊपर दिया गया पूरा CSS पेस्ट करें */
+    * {
+      margin: 0; 
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: #0d0d0d;
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 600px;
+      width: 100%;
+    }
+    .scoreboard {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+    .scoreboard span {
+      color: #00ff8c;
+      font-weight: bold;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 500px;
+    }
+    .bubble {
+      width: 0; 
+      padding-bottom: 100%;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .bubble:hover {
+      transform: scale(1.1);
+    }
+    .bubble::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      bottom: 0; right: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+    .color-0 { background: #ff5252; }
+    .color-1 { background: #ffeb3b; }
+    .color-2 { background: #66bb6a; }
+    .color-3 { background: #42a5f5; }
+    .color-4 { background: #ab47bc; }
+    .animated-button {
+      background-color: transparent;
+      color: #00ff8c;
+      padding: 10px 20px;
+      border: 2px solid #00ff8c;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      outline: none;
+    }
+    .animated-button:hover {
+      background-color: #00ff8c;
+      color: #0d0d0d;
+      transform: scale(1.05);
+    }
+    .animated-button:active {
+      transform: scale(0.95);
+    }
+    @media (max-width: 600px) {
+      #board {
+        gap: 3px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="loading-screen">
-    <div class="spinner"></div>
-    <p>Loading...</p>
-  </div>
-  
-  <div id="home-page" class="hidden">
-    <h1>Tic-Tac-Toe</h1>
-    <div id="leaderboard">Leaderboard</div>
-    <button id="create-room">Create Room</button>
-    <button id="enter-room">Enter Room</button>
+  <div class="game-container">
+    <h1>Bubble Breaker</h1>
+    <div class="scoreboard">Score: <span id="score">0</span></div>
+    <button id="newGameBtn" class="animated-button">New Game</button>
+    <div id="board"></div>
   </div>
 
-  <div id="game-lobby" class="hidden">
-    <div id="player-info">
-      <p>Your Name: <span id="player-name"></span></p>
-      <p>Your Score: <span id="player-score">0</span></p>
-      <p>Opponent: <span id="opponent-name">Waiting for Opponent</span></p>
-      <p>Opponent Score: <span id="opponent-score">0</span></p>
-      <p>Room ID: <span id="room-id"></span></p>
-    </div>
-  </div>
+  <script>
+    /* (2) यहां पूरा JS पेस्ट करें */
+    const rows = 10;
+    const cols = 10;
+    const colorCount = 5;
+    let board = [];
+    let score = 0;
 
-  <div id="game-board" class="hidden">
-    <table>
-      <tr>
-        <td id="cell-0"></td>
-        <td id="cell-1"></td>
-        <td id="cell-2"></td>
-      </tr>
-      <tr>
-        <td id="cell-3"></td>
-        <td id="cell-4"></td>
-        <td id="cell-5"></td>
-      </tr>
-      <tr>
-        <td id="cell-6"></td>
-        <td id="cell-7"></td>
-        <td id="cell-8"></td>
-      </tr>
-    </table>
-  </div>
+    const boardEl = document.getElementById('board');
+    const scoreEl = document.getElementById('score');
+    const newGameBtn = document.getElementById('newGameBtn');
 
-  <script src="firebaseConfig.js"></script>
-  <script src="app.js"></script>
+    function init() {
+      createBoard();
+      drawBoard();
+      updateScore(0);
+    }
+
+    function createBoard() {
+      board = [];
+      for (let r = 0; r < rows; r++) {
+        let row = [];
+        for (let c = 0; c < cols; c++) {
+          let colorIndex = Math.floor(Math.random() * colorCount);
+          row.push(colorIndex);
+        }
+        board.push(row);
+      }
+    }
+
+    function drawBoard() {
+      boardEl.innerHTML = '';
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          let colorIndex = board[r][c];
+          if (colorIndex === -1) {
+            const emptyDiv = document.createElement('div');
+            boardEl.appendChild(emptyDiv);
+          } else {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble', `color-${colorIndex}`);
+            bubble.addEventListener('click', () => handleBubbleClick(r, c));
+            boardEl.appendChild(bubble);
+          }
+        }
+      }
+    }
+
+    function handleBubbleClick(row, col) {
+      const targetColor = board[row][col];
+      if (targetColor === -1) return;
+
+      const connected = findConnected(row, col, targetColor);
+      if (connected.length >= 2) {
+        updateScore(score + connected.length * 10);
+        connected.forEach(([r, c]) => {
+          board[r][c] = -1;
+        });
+        dropBubbles();
+        shiftColumnsLeft();
+        drawBoard();
+      }
+    }
+
+    function findConnected(startRow, startCol, color) {
+      const stack = [[startRow, startCol]];
+      const visited = new Set();
+      visited.add(`${startRow},${startCol}`);
+      const connectedCells = [];
+
+      while (stack.length > 0) {
+        const [r, c] = stack.pop();
+        connectedCells.push([r, c]);
+
+        const neighbors = [
+          [r - 1, c],
+          [r + 1, c],
+          [r, c - 1],
+          [r, c + 1],
+        ];
+
+        for (let [nr, nc] of neighbors) {
+          if (
+            nr >= 0 && nr < rows &&
+            nc >= 0 && nc < cols &&
+            board[nr][nc] === color &&
+            !visited.has(`${nr},${nc}`)
+          ) {
+            visited.add(`${nr},${nc}`);
+            stack.push([nr, nc]);
+          }
+        }
+      }
+
+      return connectedCells;
+    }
+
+    function dropBubbles() {
+      for (let c = 0; c < cols; c++) {
+        let stack = [];
+        for (let r = rows - 1; r >= 0; r--) {
+          if (board[r][c] !== -1) {
+            stack.push(board[r][c]);
+          }
+        }
+        for (let r = rows - 1; r >= 0; r--) {
+          if (stack.length > 0) {
+            board[r][c] = stack.shift();
+          } else {
+            board[r][c] = -1;
+          }
+        }
+      }
+    }
+
+    function shiftColumnsLeft() {
+      let writeIndex = 0;
+      for (let c = 0; c < cols; c++) {
+        let isEmpty = true;
+        for (let r = 0; r < rows; r++) {
+          if (board[r][c] !== -1) {
+            isEmpty = false;
+            break;
+          }
+        }
+        if (!isEmpty) {
+          if (writeIndex !== c) {
+            for (let r = 0; r < rows; r++) {
+              board[r][writeIndex] = board[r][c];
+            }
+          }
+          writeIndex++;
+        }
+      }
+      for (let c = writeIndex; c < cols; c++) {
+        for (let r = 0; r < rows; r++) {
+          board[r][c] = -1;
+        }
+      }
+    }
+
+    function updateScore(newScore) {
+      score = newScore;
+      scoreEl.textContent = score;
+    }
+
+    function newGame() {
+      console.log("New Game button clicked!"); // Debug
+      updateScore(0);
+      createBoard();
+      drawBoard();
+    }
+
+    newGameBtn.addEventListener('click', newGame);
+
+    init();
+  </script>
 </body>
 </html>
